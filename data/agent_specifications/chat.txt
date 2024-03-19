@@ -1,0 +1,20 @@
+
+# defines the agent
+
+(define chat-agent
+
+    (:states 
+        (user-problem (:text "[User Problem]"))
+        (thought (:text "[Thought]"))
+        (action (:text "[Action]"))
+        (action-input (:text "[Action Input]"))
+        (observation (:text "[Observation]") (:flags :env-input))
+        (final-resp (:text "[Final Response]")))
+    
+    (:behavior
+        (next
+            user-problem
+            (until
+                (next thought action action-input observation)
+                final-resp)))
+)

@@ -1,0 +1,14 @@
+
+# defines the agent
+
+(define chain-of-thought-agent
+
+    (:states 
+        (question (:text "[Question]"))
+        (thought (:text "[Thought]"))
+        (answer (:text "[Answer]")))
+    
+    (:behavior
+        (next question thought answer))
+
+)

@@ -1,0 +1,31 @@
+
+# defines the agent
+
+(define reflexion-agent
+
+    (:states 
+        (question (:text "[Question]"))
+        (thought (:text "[Thought]"))
+        (action (:text "[Action]"))
+        (action-input (:text "[Action Input]"))
+        (observation (:text "[Observation]") (:flags :env-input))
+        (prop-answer (:text "[Proposed Answer]"))
+        (evaluator (:text "[Evaluation]") (:flags :env-input))
+        (reflection (:text "[Reflection]"))
+        (final-thought (:text "[Final Thought]"))
+        (answer (:text "[Answer]")))
+    
+    (:behavior
+        (next
+            question
+            (until_2
+                (next
+                    (until_3
+                        (next thought action action-input observation)
+                        final-thought)
+                    prop-answer
+                    evaluator
+                    reflection)
+                answer)))
+
+)

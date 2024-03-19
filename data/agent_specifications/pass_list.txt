@@ -1,0 +1,27 @@
+
+# defines the plan-act-summarize-solve agent
+
+(define pass-agent
+
+    (:states 
+        (question (:text "[Question]"))
+        (plan (:text "[Thought]"))
+        (action (:text "[Action]"))
+        (action-input (:text "[Action Input]"))
+        (list-results (:text "[Summary]") (:flags :env-input))
+        (final-thought (:text "[Final Thought]"))
+        (answer (:text "[Answer]")))
+    
+    (:behavior
+        (next
+            question
+            (until_3
+                (next
+                    plan
+                    (until
+                        (next action action-input)
+                        list-results))
+                final-thought)
+            answer))
+
+)

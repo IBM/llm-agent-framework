@@ -1,0 +1,13 @@
+
+# defines the agent
+
+(define direct-agent
+
+    (:states 
+        (question (:text "[Question]"))
+        (answer (:text "[Answer]")))
+    
+    (:behavior
+        (next question answer))
+
+)

@@ -1,0 +1,21 @@
+
+# defines the rewoo agent
+
+(define rewoo-agent
+
+    (:states 
+        (question (:text "[Question]"))
+        (plan (:text "[Plan]"))
+        (action-label (:text "[Action Label]"))
+        (action (:text "[Action]"))
+        (action-input (:text "[Action Input]"))
+        (solver (:text "[Answer]") (:flags :env-input)))
+    
+    (:behavior
+        (next
+            question
+            (until_5
+                (next plan action-label action action-input)
+                solver)))
+
+)
