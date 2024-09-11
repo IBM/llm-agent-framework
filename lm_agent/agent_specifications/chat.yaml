@@ -1,0 +1,26 @@
+# defines the agent
+name: chat
+states:
+  user-problem:
+    text: "[User Problem]"
+  thought:
+    text: "[Thought]"
+  action:
+    text: "[Action]"
+  action-input:
+    text: "[Action Input]"
+  observation:
+    text: "[Observation]"
+    env_input: true
+  final-resp:
+    text: "[Final Response]"
+behavior:
+  - next:
+      - user-problem
+      - until:
+          - next:
+              - thought
+              - action
+              - action-input
+              - observation
+          - final-resp

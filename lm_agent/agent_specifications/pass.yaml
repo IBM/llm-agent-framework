@@ -1,0 +1,29 @@
+# defines the agent
+name: pass
+states:
+  question:
+    text: "[Question]"
+  plan:
+    text: "[Plan]"
+  action:
+    text: "[Action]"
+  action-input:
+    text: "[Action Input]"
+  summarize:
+    text: "[Thought]"
+    env_input: true
+  post_action_solve:
+    text: "[Answer]"
+    env_input: true
+behavior:
+  - next:
+      - question
+      - until_5:
+          - next:
+              - plan
+              - until:
+                  - next:
+                      - action
+                      - action-input
+                  - summarize
+          - post_action_solve

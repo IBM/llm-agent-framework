@@ -1,13 +1,11 @@
 eval.log
-logs
 data
-experiments
-final_experiments
 llm_agents_env
 .cache
 .env
-!data/prompts/*
-!data/agent_specifications/*
+.vscode
+outputs
+scripts/check_proprietary.sh
 
 *~
 *#

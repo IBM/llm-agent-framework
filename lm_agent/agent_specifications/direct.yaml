@@ -1,0 +1,11 @@
+# defines the agent
+name: direct
+states:
+  question:
+    text: "[Question]"
+  answer:
+    text: "[Answer]"
+behavior:
+  - next:
+      - question
+      - answer

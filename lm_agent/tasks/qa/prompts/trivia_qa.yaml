@@ -1,0 +1,75 @@
+react:
+  instructions:
+    "Solve a question answering task with interleaving Thought, Action, Observation steps. Thought can reason about the current situation, and Action can be one of:
+    {{tool_descriptions}}\n\nHere are some examples."
+  input:
+    - question: "{{input}}"
+  examples:
+    - - question: "Which Asian capital city is known as Krung Thep to its inhabitants and stands on the Chao Phraya River?"
+      - thought: "I need to search for more information about Krung Thep"
+      - action: "Search"
+      - action-input: "Krung Thep"
+      - observation: "Bangkok, officially known in Thai as Krung Thep Maha Nakhon and colloquially as Krung Thep, is the capital and most populous city of Thailand. The city occupies 1,568.7 square kilometres (605.7 sq mi) in the Chao Phraya River delta in central Thailand and has an estimated population of 10.539 million as of 2020, 15.3 per cent of the country's population."
+      - thought: "Now I should search for more information about Chao Phraya River"
+      - action: "Search"
+      - action-input: "Chao Phraya River"
+      - observation: "The Chao Phraya ( or ; Thai: แม่น้ำเจ้าพระยา, RTGS: Maenam Chao Phraya, pronounced [mɛ̂ːnáːm tɕâːw pʰráʔ.jāː]  or [tɕâːw pʰrā.jāː]) is the major river in Thailand, with its low alluvial plain forming the centre of the country. It flows through Bangkok and then into the Gulf of Thailand."
+      - final-thought: "The name of the city is Bangkok"
+      - answer: "Bangkok"
+
+pass:
+  instructions:
+    "Solve a question answering task with interleaving Thought, Action, Summary steps. Thought can reason about the current situation, and Action can be one of:
+    {{tool_descriptions}}\n\nHere are some examples."
+  input:
+    - question: "{{input}}"
+  examples:
+    - - question: "Which Asian capital city is known as Krung Thep to its inhabitants and stands on the Chao Phraya River?"
+      - plan: "I need to search for more information about Krung Thep and the Chao Phraya River"
+      - action: "Search"
+      - action-input: "Krung Thep"
+      - summarize: "Bangkok, officially known in Thai as Krung Thep Maha Nakhon and colloquially as Krung Thep, is the capital and most populous city of Thailand. The city occupies 1,568.7 square kilometres (605.7 sq mi) in the Chao Phraya River delta in central Thailand and has an estimated population of 10.539 million as of 2020, 15.3 per cent of the country's population."
+      - plan: "Now I should search for more information about Chao Phraya River"
+      - action: "Search"
+      - action-input: "Chao Phraya River"
+      - summarize: "The Chao Phraya ( or ; Thai: แม่น้ำเจ้าพระยา, RTGS: Maenam Chao Phraya, pronounced [mɛ̂ːnáːm tɕâːw pʰráʔ.jāː]  or [tɕâːw pʰrā.jāː]) is the major river in Thailand, with its low alluvial plain forming the centre of the country. It flows through Bangkok and then into the Gulf of Thailand."
+      - post_action_solve: "Bangkok"
+
+rewoo:
+  instructions:
+    "For the following tasks, make plans that can solve the problem step-by-step. For each plan, indicate which external action together with action input to retrieve evidence. You can store the evidence into a variable #E that can be called by later actions. (Plan, #E1, Plan, #E2, Plan, ...). Actions can be one of the following:
+    {{tool_descriptions}}\n\nBegin! Describe your plans with rich details. Each Plan should be followed by only one #E."
+  input:
+    - question: "{{input}}"
+  examples:
+    - - question: "Which Asian capital city is known as Krung Thep to its inhabitants and stands on the Chao Phraya River?"
+      - plan: "Search for more information about Krung Thep"
+      - action-label: "#E1"
+      - action: "Search"
+      - action-input: "Krung Thep"
+      - plan: "Search for more information about Chao Phraya River"
+      - action-label: "#E2"
+      - action: "Search"
+      - action-input: "Chao Phraya River"
+      - plan: "Find the name of the capital city that goes by Krung Thep and stands on the Chao Phraya River"
+      - action-label: "#E3"
+      - action: "LLM"
+      - action-input: "What is the name of the capital city that goes by Krung Thep and stands on the Chao Phraya River? Given context: #E1 and #E2"
+      - solver: "Bangkok"
+
+cot:
+  instructions: "Answer the following questions as best you can.\nHere are some examples."
+  input:
+    - question: "{{input}}"
+  examples:
+    - - question: "What is the name of the river on which Bakewell stands?"
+      - thought: "The location of Bakewell is Derbyshire, England. The River Wye flows through the town."
+      - answer: "River Wye"
+
+direct:
+  instructions: "Answer the following questions as best you can.\nHere are some examples."
+  input:
+    - question: "{{input}}"
+  examples:
+    - - question: "What is the name of the river on which Bakewell stands?"
+      - answer: "River Wye"

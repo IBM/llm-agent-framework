@@ -1,0 +1,90 @@
+[build-system]
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lm_agent"
+dynamic = ["version"]
+description = "A framework for llm-based agents"
+license = { "text" = "Apache-2.0" }
+readme = "README.md"
+classifiers = [
+    "License :: OSI Approved :: Apache License",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "accelerate>=0.26.0",
+    "datasets>=2.16.0",
+    "jsonlines",
+    "peft>=0.5.0",
+    "pytablewriter",
+    "rouge-score>=0.0.4",
+    "scikit-learn>=0.24.1",
+    "sqlitedict",
+    "torch",
+    "tqdm-multiprocess",
+    "transformers>=4.1",
+    "zstandard",
+    "dill",
+    "word2number",
+    "more_itertools",
+    "python-dotenv",
+    "wikipedia",
+    "dateparser"
+]
+
+[tool.setuptools.packages.find]
+include = ["lm_agent*"]
+
+# required to include yaml files in pip installation
+[tool.setuptools.package-data]
+lm_agent = ["**/*.yaml", "tasks/**/*"]
+
+[project.scripts]
+lm_agent = "lm_agent.__main__:cli_evaluate"
+
+[project.urls]
+Homepage = "https://github.com/IBM/llm-agent-framework"
+Repository = "https://github.com/IBM/llm-agent-framework"
+
+[project.optional-dependencies]
+genai = ["ibm-generative-ai"]
+gptq = ["auto-gptq[triton]>=0.6.0"]
+openai = ["openai==1.3.9", "tiktoken"]
+promptsource = ["promptsource>=0.2.3"]
+sentencepiece = ["sentencepiece>=0.1.98"]
+testing = ["pytest", "pytest-cov", "pytest-xdist"]
+vllm = ["torch==2.3.0", "vllm==0.3.2"]
+dev-test = [
+    "pytest>=6",
+    "pytest-cov>=2.10.1",
+    "pytest-timeout>=2.1.0,<3",
+]
+dev-fmt = [
+    "pre-commit>=3.0.4,<4.0",
+]
+dev-build = [
+    "setuptools>=60",
+    "setuptools-scm>=8.0",
+]
+
+# NOTE: This is "all" from the user and dev perspective
+all-dev = [
+    "lm_agent[dev-test, dev-fmt, dev-build]"
+]
+all = [
+    "lm_agent[genai]",
+    "lm_agent[openai]",
+    "lm_agent[promptsource]",
+    "lm_agent[sentencepiece]",
+    "lm_agent[vllm]",
+]
+
+[tool.ruff.lint]
+select = ["I"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "F401", # imported but unused
+    "F403" # unable to detect undefined names
+]

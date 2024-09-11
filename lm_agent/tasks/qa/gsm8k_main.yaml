@@ -1,0 +1,41 @@
+task: gsm8k_main
+model:
+  model_backend: genai
+  temperature: 0.0
+  max_new_tokens: 256
+  min_new_tokens: 1
+  # model_id_or_path: mistralai/mixtral-8x7b-instruct-v01
+  model_id_or_path: meta-llama/llama-3-70b-instruct
+tools:
+  - Calculator
+agents:
+  react:
+    max_response_tokens: 1024
+    tools:
+      - Calculator
+  pass:
+    max_response_tokens: 1024
+    tools:
+      - Calculator
+  pass-list:
+    max_response_tokens: 1024
+    tools:
+      - Calculator
+  rewoo:
+    max_response_tokens: 1024
+    tools:
+      - Calculator
+  cot:
+    max_response_tokens: 1024
+    self_consistency: 5
+    model:
+      temperature: 0.4
+  direct:
+    max_response_tokens: 1024
+    self_consistency: 5
+    model:
+      temperature: 0.4
+input_source:
+  type: "hf"
+metadata:
+  version: 1.0

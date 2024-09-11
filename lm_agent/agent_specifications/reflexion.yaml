@@ -1,0 +1,41 @@
+# defines the agent
+name: reflexion
+states:
+  question:
+    text: "[Question]"
+  thought:
+    text: "[Thought]"
+  action:
+    text: "[Action]"
+  action-input:
+    text: "[Action Input]"
+  observation:
+    text: "[Observation]"
+    env_input: true
+  prop-answer:
+    text: "[Proposed Answer]"
+  evaluator:
+    text: "[Evaluation]"
+    env_input: true
+  reflection:
+    text: "[Reflection]"
+  final-thought:
+    text: "[Final Thought]"
+  answer:
+    text: "[Answer]"
+behavior:
+  - next:
+      - question
+      - until:
+          - next:
+              - until:
+                  - next:
+                      - thought
+                      - action
+                      - action-input
+                      - observation
+                  - final-thought
+              - prop-answer
+              - evaluator
+              - reflection
+          - answer

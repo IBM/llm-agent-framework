@@ -1,0 +1,26 @@
+# defines the agent
+name: rewoo
+states:
+  question:
+    text: "[Question]"
+  plan:
+    text: "[Plan]"
+  action-label:
+    text: "[Action Label]"
+  action:
+    text: "[Action]"
+  action-input:
+    text: "[Action Input]"
+  solver:
+    text: "[Answer]"
+    env_input: true
+behavior:
+  - next:
+      - question
+      - until_5:
+          - next:
+              - plan
+              - action-label
+              - action
+              - action-input
+          - solver
